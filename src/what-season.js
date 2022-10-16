@@ -12,22 +12,34 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 // function getSeason(date) {
-function getSeason( /*date*/ ) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
-    // return false
-    if (date == null) {
-        return "Unable to determine the time of year!";
+function getSeason(date) {
+    if (!arguments.length) return "Unable to determine the time of year!";
+
+    if (
+        Object.prototype.toString.call(date) != "[object Date]" ||
+        typeof date == "string" ||
+        Object.getOwnPropertySymbols(date).length !== 0
+    ) {
+        throw new Error("Invalid date!");
     }
-    if (Object.prototype.toString.call(arg) != "[object Date]")
-        throw new Error("Invalid Error");
-    let seasons = ["winter", "spring", "summer", "autumn"];
-    let m = date.getMonth();
-    let n = 0;
-    if (m >= 2 && m <= 4) n = 1;
-    if (m >= 5 && m <= 7) n = 2;
-    if (m >= 8 && m <= 10) n = 3;
-    return seasons[n];
+
+    let month = date.getMonth();
+    if (month >= 2 && month <= 4) {
+        console.log("spring");
+        return "spring";
+    }
+    if (month >= 5 && month <= 7) {
+        console.log("summer");
+        return "summer";
+    }
+    if (month >= 8 && month <= 10) {
+        console.log("autumn");
+        return "autumn";
+    }
+    if (month == 11 || (month >= 0 && month <= 1)) {
+        console.log("winter");
+        return "winter";
+    }
 }
 
 module.exports = {
