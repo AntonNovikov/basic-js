@@ -21,17 +21,16 @@ const chainMaker = {
     },
     removeLink(position) {
         if (
-            typeof position != "number" ||
-            position % 1 != 0 ||
-            (position > 0 && position <= this.array.length)
+            typeof position !== "number" ||
+            position % 1 !== 0 ||
+            !this.array[position - 1]
         ) {
+            this.array.length = 0;
+            throw new Error(`You can't remove incorrect link!`);
+        } else {
             this.array.splice(position - 1, 1);
-            return this;
+            return chainMaker;
         }
-        this.array = [];
-        throw new Error("You can't remove incorrect link!");
-        throw new NotImplementedError("Not implemented");
-        // remove line with error and write your code here
     },
     reverseChain() {
         this.array.reverse();
